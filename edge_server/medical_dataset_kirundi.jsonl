@@ -1,0 +1,52 @@
+{"instruction": "Assess symptoms: Fever and headache.", "context": "Malaria is common in this region.", "response": "[STATUS: Yellow] - Ibimenyetso vya Malaria. Genda kwa muganga upimwe umuriro."}
+{"instruction": "Patient has severe bleeding.", "context": "Emergency protocols.", "response": "[STATUS: Red] - Igihe ufise amaraso menshi, genda kwa muganga ubu nyene!"}
+{"instruction": "Umwana aratitira cane.", "context": "Convulsions in children.", "response": "[STATUS: Red] - Umwana atitira ni ikimenyetso kibi cane. Mwihutane kwa muganga."}
+{"instruction": "Ndafise umuriro n'intama.", "context": "Fever and chills symptoms.", "response": "[STATUS: Yellow] - Ibimenyetso vya Malaria. Nywa amazi menshi, genda kwa muganga."}
+{"instruction": "Ndasanze amaraso mu nkari.", "context": "Blood in urine symptoms.", "response": "[STATUS: Red] - Amaraso mu nkari ni ikimenyetso kibi. Genda kwa muganga vuba."}
+{"instruction": "Umwana ntashobora kunywa.", "context": "Child unable to drink.", "response": "[STATUS: Red] - Umwana adashobora kunywa ni ikimenyetso kibi. Mwihutane kwa muganga."}
+{"instruction": "Ndafise ubwoba n'ubushake bwo kuraguza.", "context": "Nausea and vomiting.", "response": "[STATUS: Yellow] - Nywa amazi make make. Niba bikomeje, genda kwa muganga."}
+{"instruction": "My child has diarrhea for 3 days.", "context": "Persistent diarrhea in children.", "response": "[STATUS: Yellow] - Impisanzuya y'iminsi 3. Muhe amazi ya SRO, genda kwa muganga."}
+{"instruction": "Ndafise ububabare mu nda.", "context": "Abdominal pain.", "response": "[STATUS: Yellow] - Ububabare mu nda bushobora kuba indwara zitandukanye. Genda kwa muganga."}
+{"instruction": "Umwana afise umuriro ukabije.", "context": "High fever in child.", "response": "[STATUS: Red] - Umuriro ukabije ku mwana ni ikimenyetso kibi. Genda kwa muganga vuba."}
+{"instruction": "Ndashaka gusuzugura ariko sinshobora.", "context": "Difficulty breathing.", "response": "[STATUS: Red] - Kutashobora gusuzugura ni ikimenyetso kibi cane. Genda kwa muganga ubu nyene!"}
+{"instruction": "Ndafise amaboko n'amaguru yabyimbye.", "context": "Swollen hands and feet.", "response": "[STATUS: Yellow] - Kubyimba kw'amaboko n'amaguru. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Umwana yakoze akazi k'amabere.", "context": "Child has rash.", "response": "[STATUS: Green] - Akazi k'amabere. Mukarabe neza, niba bikomeje genda kwa muganga."}
+{"instruction": "Ndafise ubwoba bw'amazi.", "context": "Fear of water - possible rabies.", "response": "[STATUS: Red] - Ubwoba bw'amazi ni ikimenyetso kibi cane. Genda kwa muganga ubu nyene!"}
+{"instruction": "Mama w'umwana afise ibibabare by'amabere.", "context": "Breast pain in nursing mother.", "response": "[STATUS: Yellow] - Ibibabare by'amabere bishobora kuba infection. Genda kwa muganga."}
+{"instruction": "Ndafise inzara nyinshi ariko ntankintu nkunda kurya.", "context": "Loss of appetite with hunger.", "response": "[STATUS: Yellow] - Kutakunda kurya ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Umwana yakoze ubushuhe bukabije.", "context": "Child with high temperature.", "response": "[STATUS: Red] - Ubushuhe bukabije ku mwana. Mumunyeshe amazi akonje, genda kwa muganga."}
+{"instruction": "Ndafise amaso abara.", "context": "Yellow eyes - possible jaundice.", "response": "[STATUS: Yellow] - Amaso abara ni ikimenyetso cya hepatitis. Genda kwa muganga vuba."}
+{"instruction": "Sinshobora gusinzira kubera inkorora.", "context": "Cough preventing sleep.", "response": "[STATUS: Yellow] - Inkorora ikabije. Nywa amazi ashyushye, genda kwa muganga."}
+{"instruction": "Umwana ntashobora kugenda.", "context": "Child unable to walk.", "response": "[STATUS: Red] - Umwana adashobora kugenda ni ikimenyetso kibi. Genda kwa muganga vuba."}
+{"instruction": "Ndafise ibibabare by'amagufa.", "context": "Joint pain.", "response": "[STATUS: Yellow] - Ibibabare by'amagufa bishobora kuba arthritis. Genda kwa muganga."}
+{"instruction": "Mama araguza amaraso.", "context": "Pregnant woman vomiting blood.", "response": "[STATUS: Red] - Kuraguza amaraso mu gituza ni ikimenyetso kibi cane. Genda kwa muganga ubu nyene!"}
+{"instruction": "Ndafise ubwoba n'ubushake bwo guca mu nkari.", "context": "Frequent urination with burning.", "response": "[STATUS: Yellow] - Ubwoba bwo guca ni ikimenyetso cya infection. Genda kwa muganga."}
+{"instruction": "Umwana yakoze amabara mu nkari.", "context": "Child with dark urine.", "response": "[STATUS: Yellow] - Amabara mu nkari ni ikimenyetso. Mumunyeshe amazi menshi, genda kwa muganga."}
+{"instruction": "Ndashobora kubona ibintu bitari byo.", "context": "Hallucinations.", "response": "[STATUS: Red] - Kubona ibintu bitari byo ni ikimenyetso kibi. Genda kwa muganga vuba."}
+{"instruction": "Mama w'umwana afise amabere akomeye.", "context": "Hard breasts in nursing mother.", "response": "[STATUS: Yellow] - Amabere akomeye ni ikimenyetso cya mastitis. Genda kwa muganga."}
+{"instruction": "Ndafise ibibabare by'umutwe bikabije.", "context": "Severe headache.", "response": "[STATUS: Yellow] - Ibibabare by'umutwe bikabije. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Umwana yakoze amabara mu nda.", "context": "Child with black stool.", "response": "[STATUS: Red] - Amabara mu nda ni ikimenyetso cy'amaraso. Genda kwa muganga vuba."}
+{"instruction": "Ndashobora kwihuta guhaguruka.", "context": "Dizziness when standing.", "response": "[STATUS: Yellow] - Kwihuta guhaguruka ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Mama araguza buri gitondo.", "context": "Morning sickness in pregnancy.", "response": "[STATUS: Green] - Kuraguza mu gitondo ni ibisanzwe mu gituza. Nywa amazi make make."}
+{"instruction": "Ndafise ubwoba bw'urumuri.", "context": "Light sensitivity.", "response": "[STATUS: Yellow] - Ubwoba bw'urumuri ni ikimenyetso cya meningitis. Genda kwa muganga vuba."}
+{"instruction": "Umwana yakoze amaboko n'amaguru bikonje.", "context": "Cold hands and feet in child.", "response": "[STATUS: Yellow] - Amaboko n'amaguru bikonje ni ikimenyetso. Mumutwikire, genda kwa muganga."}
+{"instruction": "Ndafise inzara y'amazi nyinshi.", "context": "Excessive thirst.", "response": "[STATUS: Yellow] - Inzara y'amazi nyinshi ni ikimenyetso cya diabetes. Genda kwa muganga."}
+{"instruction": "Mama afise ibibabare by'ikibuno.", "context": "Back pain in pregnancy.", "response": "[STATUS: Green] - Ibibabare by'ikibuno ni ibisanzwe mu gituza. Uruhuke, niba bikomeje genda kwa muganga."}
+{"instruction": "Ndafise ubwoba bw'ijoro.", "context": "Night sweats.", "response": "[STATUS: Yellow] - Ubwoba bw'ijoro ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Umwana yakoze amaso acecetse.", "context": "Sunken eyes in child.", "response": "[STATUS: Red] - Amaso acecetse ni ikimenyetso cy'amazi make. Muhe amazi ya SRO, genda kwa muganga."}
+{"instruction": "Ndashobora guhaguruka ariko nkagwa.", "context": "Weakness and falling.", "response": "[STATUS: Yellow] - Intege nke n'ukugwa ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Mama afise amaraso menshi nyuma y'kubyara.", "context": "Heavy bleeding after delivery.", "response": "[STATUS: Red] - Amaraso menshi nyuma y'kubyara ni ikimenyetso kibi cane. Genda kwa muganga ubu nyene!"}
+{"instruction": "Ndafise inkorora n'amaraso.", "context": "Cough with blood.", "response": "[STATUS: Red] - Inkorora n'amaraso ni ikimenyetso kibi. Genda kwa muganga vuba."}
+{"instruction": "Umwana ntashobora kurya.", "context": "Child refusing to eat.", "response": "[STATUS: Yellow] - Umwana adakunda kurya ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Ndafise ibibabare by'ikiganza.", "context": "Chest pain.", "response": "[STATUS: Red] - Ibibabare by'ikiganza ni ikimenyetso kibi. Genda kwa muganga vuba."}
+{"instruction": "Mama afise umuriro nyuma y'kubyara.", "context": "Fever after delivery.", "response": "[STATUS: Red] - Umuriro nyuma y'kubyara ni ikimenyetso kibi. Genda kwa muganga vuba."}
+{"instruction": "Ndafise ubwoba bw'kurya.", "context": "Fear of eating.", "response": "[STATUS: Yellow] - Ubwoba bw'kurya ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Umwana yakoze amabara mu kanwa.", "context": "Blue lips in child.", "response": "[STATUS: Red] - Amabara mu kanwa ni ikimenyetso kibi cane. Genda kwa muganga ubu nyene!"}
+{"instruction": "Ndashobora kubona neza.", "context": "Vision problems.", "response": "[STATUS: Yellow] - Ibibabare by'amaso ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Mama afise ibibabare by'inda.", "context": "Abdominal pain in pregnancy.", "response": "[STATUS: Yellow] - Ibibabare by'inda mu gituza ni ikimenyetso. Genda kwa muganga vuba."}
+{"instruction": "Ndafise ubwoba bw'amajwi.", "context": "Hearing problems.", "response": "[STATUS: Yellow] - Ibibabare by'amatwi ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Umwana yakoze ubwoba bukabije.", "context": "Child with severe fear/anxiety.", "response": "[STATUS: Yellow] - Ubwoba bukabije ku mwana ni ikimenyetso. Genda kwa muganga."}
+{"instruction": "Ndafise ibibabare by'amenyo.", "context": "Tooth pain.", "response": "[STATUS: Green] - Ibibabare by'amenyo. Karaba amenyo yawe neza, genda kwa muganga w'amenyo."}
+{"instruction": "Mama afise amabere acecetse.", "context": "Flat breasts in nursing mother.", "response": "[STATUS: Yellow] - Amabere acecetse ni ikimenyetso cy'amata make. Genda kwa muganga."}
+{"instruction": "Ndafise ubwoba bw'ubushuhe.", "context": "Heat intolerance.", "response": "[STATUS: Yellow] - Ubwoba bw'ubushuhe ni ikimenyetso. Genda kwa muganga ukore ipimwa."}
+{"instruction": "Umwana yakoze amaboko akabije.", "context": "Child with severe hand pain.", "response": "[STATUS: Yellow] - Ibibabare by'amaboko bikabije. Genda kwa muganga ukore ipimwa."}

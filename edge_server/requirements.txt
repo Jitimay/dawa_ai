@@ -1,0 +1,10 @@
+pyserial
+requests
+chromadb
+sentence-transformers
+sqlite3
+# For fine-tuning (optional, needs GPU)
+# unsloth
+# torch
+# datasets
+# trl

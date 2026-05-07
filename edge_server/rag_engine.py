@@ -51,7 +51,27 @@ if __name__ == "__main__":
         
         # GENERAL RED FLAGS
         {"text": "Red Flags: Unconsciousness, severe bleeding, difficulty breathing, convulsions. ACTION: Immediate hospital transfer.", "meta": {"topic": "emergency", "lang": "english"}},
-        {"text": "Urgence: Ukubura ubwenge, amaraso menshi, guhumeka nabi, gutitira. ACTION: Genda kwa muganga ubu nyene.", "meta": {"topic": "emergency", "lang": "kirundi"}}
+        {"text": "Urgence: Ukubura ubwenge, amaraso menshi, guhumeka nabi, gutitira. ACTION: Genda kwa muganga ubu nyene.", "meta": {"topic": "emergency", "lang": "kirundi"}},
+
+        # TUBERCULOSIS (TB)
+        {"text": "Ibimenyetso vya TB (Igituntu): Inkorora imaze igihe kirekire, kubira ibyuya ijoro, gutakaza ibiro. Genda kwa muganga upimwe igituza.", "meta": {"topic": "tb", "lang": "kirundi"}},
+        {"text": "Symptoms of Tuberculosis (TB): Persistent cough, night sweats, weight loss. Action: Visit clinic for chest screening.", "meta": {"topic": "tb", "lang": "english"}},
+
+        # POISONING
+        {"text": "Kunywa uburozi (Poisoning): Ibimenyetso: Ukuraguza, gucibwamwo, gutitira. ACTION: Genda kwa muganga ubu nyene! Ntutebe.", "meta": {"topic": "poisoning", "lang": "kirundi"}},
+        {"text": "Accidental Poisoning: Symptoms include vomiting, diarrhea, convulsions. ACTION: Immediate hospital transfer. Do not wait.", "meta": {"topic": "poisoning", "lang": "english"}},
+
+        # SNAKE BITE
+        {"text": "Kurumwa n'incira (Snake bite): ACTION: Ntukiruke, funga hejuru y'aho yarumye gato, genda kwa muganga ubu nyene!", "meta": {"topic": "snake_bite", "lang": "kirundi"}},
+        {"text": "Snake bite: ACTION: Keep the limb still, apply a light bandage above the bite, and go to the hospital immediately.", "meta": {"topic": "snake_bite", "lang": "english"}},
+
+        # DEHYDRATION
+        {"text": "Ubukame bw'amazi (Dehydration): Ibimenyetso: Amaso acecetse, iyeri ryasutse (ku mwana), intege nke. Gutabara: Nywa amazi ya SRO vuba.", "meta": {"topic": "dehydration", "lang": "kirundi"}},
+        {"text": "Dehydration: Symptoms include sunken eyes, sunken fontanelle (in infants), extreme weakness. Action: Drink Oral Rehydration Salts (ORS) immediately.", "meta": {"topic": "dehydration", "lang": "english"}},
+
+        # WATER SAFETY
+        {"text": "Kwirinda indwara z'amazi: Banze uyateke amazi cyangwa uyashiremo umuti (Sur'Eau) mbere yo kuyanywa kugira wirinde impisanzuya.", "meta": {"topic": "hygiene", "lang": "kirundi"}},
+        {"text": "Water Safety: Boil water or use treatment (Sur'Eau) before drinking to prevent diarrhea and cholera.", "meta": {"topic": "hygiene", "lang": "english"}}
     ]
     
     for item in seed_data:

@@ -12,7 +12,7 @@ void setup() {
   gsm.begin(9600);        // To SIM800L (Default baud is usually 9600)
   
   delay(3000); // Wait for module power-up
-  Serial.println("Initializing MajiDawa GSM Gateway...");
+  Serial.println("Initializing Dawa AI GSM Gateway...");
   
   // Basic AT check
   gsm.println("AT");

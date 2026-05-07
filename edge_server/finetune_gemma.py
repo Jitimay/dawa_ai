@@ -51,7 +51,16 @@ trainer = SFTTrainer(
 # 6. Train
 trainer.train()
 
-# 7. Save the Fine-Tuned Model
+# 7. Save the Fine-Tuned Model (LoRA)
 model.save_pretrained("gemma-4-dawa-kirundi")
 tokenizer.save_pretrained("gemma-4-dawa-kirundi")
-print("Fine-tuning complete. Model saved to 'gemma-4-dawa-kirundi'.")
+
+# 8. Export to GGUF for Ollama
+# We merge the LoRA adapters into the base model and save as GGUF
+print("Exporting model to GGUF format for Ollama...")
+model.save_pretrained_gguf(
+    "gemma-4-dawa-kirundi-gguf",
+    tokenizer,
+    quantization_method = "q4_k_m", # Standard high-quality 4-bit quantization
+)
+print("Fine-tuning and GGUF export complete. Model saved to 'gemma-4-dawa-kirundi-gguf'.")

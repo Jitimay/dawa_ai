@@ -2,12 +2,18 @@ import requests
 from rag_engine import query_guidelines
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "gemma" 
+MODEL_NAME = "dawa-nurse" # Point to the fine-tuned model created via Modelfile
 
 def get_triage_response(phone_number, user_input, history, preferred_lang='kirundi'):
     # Fetch relevant medical protocols from the local vector DB (RAG)
     relevant_docs = query_guidelines(user_input, n_results=1)
     context = "\n".join(relevant_docs) if relevant_docs else "No specific local protocol found."
+    
+    # [SAFETY LOG] Show grounding proof in the terminal
+    print(f"--- RAG GROUNDING ---")
+    print(f"User Query: {user_input}")
+    print(f"Retrieved Protocol: {context}")
+    print(f"---------------------")
 
     lang_instruction = {
         'kirundi': "Respond primarily in Kirundi.",
@@ -16,13 +22,9 @@ def get_triage_response(phone_number, user_input, history, preferred_lang='kirun
     }.get(preferred_lang, "Respond primarily in Kirundi.")
 
     system_instruction = (
-        "Role: You are an expert medical triage assistant for rural Burundi. "
-        "Task: Assess symptoms and provide safe guidance based ONLY on the provided Context and Past Context. "
-        "Rule 1: NEVER give a medical diagnosis. "
-        f"Rule 2: {lang_instruction} "
-        "Rule 3: Keep responses under 140 characters. "
-        "Rule 4: If a Red Flag is detected, prioritize immediate hospital transfer.\n"
-        f"Grounded Medical Context: {context}\n"
+        f"Grounded Medical Context (FACTS): {context}\n"
+        f"Constraint: {lang_instruction} "
+        "Keep responses under 140 characters."
     )
     
     prompt = f"{system_instruction}\nPast Context: {history}\n\nPatient: {user_input}\nNurse:"

@@ -33,7 +33,8 @@ RED_FLAG_KEYWORDS = [
     "gutitira", "crise", "convulsion",
     "kuzitirwa", "inconscient", "unconscious",
     "guhumeka nabi", "difficulte respiratoire", "breathing",
-    "indwara", "urgence", "emergency"
+    "indwara", "urgence", "emergency",
+    "cancer", "kanseri", "ububabare bukabije", "severe pain"
 ]
 
 LOG_FILE = "triage_logs.csv"
@@ -169,7 +170,7 @@ def main():
                         log_interaction(phone_number, user_text, ai_reply, "AI_RESPONSE")
 
         except KeyboardInterrupt:
-            print("\nShutting down MajiDawa Server...")
+            print("\nShutting down Dawa AI Server...")
             ser.close()
             break
         except Exception as e:

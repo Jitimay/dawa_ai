@@ -1,4 +1,4 @@
-FROM ./dawa_nurse_model/unsloth.Q4_K_M.gguf
+FROM ./dawa-nurse-gemma4.Q4_K_M.gguf
 
 # Set the nurse persona and constraints in the Modelfile itself
 SYSTEM """

@@ -5,7 +5,9 @@ import os
 
 # 1. Install necessary libraries (specific for Kaggle/Colab environments)
 print("Installing Unsloth and dependencies...")
+# Added unsloth_zoo which is now a required dependency for newer Unsloth versions
 os.system('pip install --no-deps "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git" -q')
+os.system('pip install unsloth_zoo --no-deps -q')
 os.system('pip install --no-deps "xformers<0.0.27" "trl<0.9.0" peft accelerate bitsandbytes -q')
 
 from unsloth import FastLanguageModel
@@ -17,7 +19,8 @@ from transformers import TrainingArguments
 # 2. Configuration
 model_name = "google/gemma-4-4b-it" 
 max_seq_length = 2048
-dataset_file = "medical_dataset_kirundi.jsonl" # Ensure this file is uploaded to the same directory
+# Updated to match your Kaggle dataset path
+dataset_file = "/kaggle/input/medical-data-set-kirundi/medical_dataset_kirundi.jsonl" 
 
 # 3. Load Model and Tokenizer (4-bit quantization)
 print("Loading Gemma 4-4b-it...")
@@ -37,21 +40,35 @@ model = FastLanguageModel.get_peft_model(
     bias = "none",
 )
 
-# 5. Load Dataset
+# 5. Load and Format Dataset
 print(f"Loading dataset: {dataset_file}")
 dataset = load_dataset("json", data_files=dataset_file, split="train")
+
+# Define a formatting function to combine instruction and context
+def format_prompts(examples):
+    instructions = examples["instruction"]
+    contexts = examples["context"]
+    responses = examples["response"]
+    texts = []
+    for instruction, context, response in zip(instructions, contexts, responses):
+        # Format consistent with how the Modelfile and ai_engine.py will use it
+        text = f"Context: {context}\nPatient: {instruction}\nNurse: {response}"
+        texts.append(text)
+    return { "text" : texts }
+
+dataset = dataset.map(format_prompts, batched = True)
 
 # 6. Define Trainer
 trainer = SFTTrainer(
     model = model,
     train_dataset = dataset,
-    dataset_text_field = "instruction", # We will use the 'instruction' field for now
+    dataset_text_field = "text",
     max_seq_length = max_seq_length,
     args = TrainingArguments(
         per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
         warmup_steps = 10,
-        max_steps = 100, # Increased steps for better learning of the 90+ rows
+        max_steps = 150, # Increased for the 126+ rows to ensure better persona lock-in
         learning_rate = 2e-4,
         fp16 = not torch.cuda.is_bf16_supported(),
         bf16 = torch.cuda.is_bf16_supported(),

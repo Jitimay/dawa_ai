@@ -36,7 +36,7 @@ def get_triage_response(phone_number, user_input, history, preferred_lang='kirun
     }
     
     try:
-        response = requests.post(OLLAMA_URL, json=payload, timeout=15)
+        response = requests.post(OLLAMA_URL, json=payload, timeout=20) # Increased timeout for edge CPUs
         response.raise_for_status()
         reply = response.json().get('response', '').strip()
         
@@ -45,6 +45,9 @@ def get_triage_response(phone_number, user_input, history, preferred_lang='kirun
             reply = reply[:147] + "..."
             
         return reply
+    except requests.exceptions.ConnectionError:
+        print("[!] Error: Ollama server is not running.")
+        return "[STATUS: Yellow] - AI service is temporarily offline. Please follow local health protocols."
     except Exception as e:
         print(f"AI Engine Error: {e}")
-        return "[STATUS: Yellow] - Error connecting to local AI. Please visit a clinic."
+        return "[STATUS: Yellow] - AI Error. Please visit a clinic for professional advice."

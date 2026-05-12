@@ -1,82 +1,104 @@
 # Dawa AI: The Offline Healthcare Bridge
-
-**Dawa AI** is an offline AI Health Gateway designed to bridge the "Last Mile" of healthcare for the 3.6 billion people globally who lack internet access. By combining Google's **Gemma 4** model with local edge hardware and the ubiquitous **SMS protocol**, we provide expert-level medical triage in native languages without requiring data, Wi-Fi, or smartphones.
-
----
-
-## 🚀 Technical Innovation
-
-### 1. The "Offline Edge" Architecture
-We deployed Gemma 4 on a local edge server connected to an Arduino-driven GSM gateway.
-- **Hardware:** Arduino + SIM800L GSM Module + Local PC.
-- **Protocol:** SMS (Text-only) ensures 100% reach on basic feature phones.
-
-### 2. Hybrid Intelligence (RAG + Fine-Tuning)
-To ensure absolute safety and local nuance, we implemented a two-fold AI strategy:
-- **Fine-Tuning (Unsloth):** Gemma 4 was fine-tuned on a custom dataset of Kirundi medical triage examples, optimizing it for the "Nurse" persona and local linguistic accuracy.
-- **RAG (ChromaDB):** We integrated a vector database to store official WHO and Burundian Ministry of Health protocols. Every response is grounded in these facts to eliminate hallucinations.
-
-### 3. Safety Guardrails
-- **Red Flag Detector:** A hard-coded emergency scanner that identifies life-threatening keywords (e.g., "bleeding", "unconscious") and bypasses the AI to provide immediate emergency instructions.
+**Project Theme:** Global Resilience / Health & Sciences
+**Model:** Gemma 4 E2B-it (Fine-tuned via Unsloth)
+**Interface:** SMS (Offline GSM Gateway)
 
 ---
 
-## 🛠️ Setup & Installation
+## 🌍 The Mission
+**Dawa AI** is an offline AI Health Gateway designed to bridge the "Last Mile" of healthcare for the 3.6 billion people globally who lack internet access. By combining Google's **Gemma 4** model with local edge hardware and the ubiquitous **SMS protocol**, we provide expert-level medical triage in native languages (Kirundi, French, English) without requiring data, Wi-Fi, or smartphones.
 
-### Prerequisites
-- **Hardware:** Arduino (Uno/Mega/RP2040) + SIM800L Module.
-- **Software:** 
-  - Python 3.10+
-  - [Ollama](https://ollama.ai/)
-  - [Unsloth](https://github.com/unslothai/unsloth)
+### 🏆 Grand Prize trajectory:
+- **Offline First:** Runs 100% without internet.
+- **Inclusive:** Accessible via $10 feature phones.
+- **Safety Centric:** Hybrid RAG + Deterministic "Red Flag" Guardrails.
+- **Localized:** Fine-tuned for rural Burundian linguistic and medical contexts.
 
-### Step 1: Fine-Tuning (The Unsloth Advantage)
-1. Navigate to `edge_server/`.
-2. Run the fine-tuning script:
+---
+
+## 🛠️ System Architecture
+
+### 1. Hardware Layer (The Gateway)
+- **Arduino (Uno/RP2040):** Handles serial parsing and power management.
+- **SIM800L GSM Module:** Provides the cellular link for SMS.
+- **Local PC/Edge Server:** Runs the LLM and Database.
+
+### 2. AI Layer (The Brain)
+- **Gemma 4-4b-it:** Quantized to 4-bit (GGUF) for high-speed edge inference.
+- **Unsloth Fine-Tuning:** Optimized for the "Digital Nurse" persona in Kirundi.
+- **ChromaDB (RAG):** Grounding every response in official WHO & Burundian health protocols.
+
+---
+
+## 🔌 Hardware Setup (The "Foolproof" Guide)
+
+### Wiring Diagram (ASCII)
+```text
+  [ SIM800L ]        [ ARDUINO ]        [ PC / SERVER ]
+  VCC (5V/2A) <----> 5V (External)
+  GND         <----> GND
+  TX          <----> Pin 0 (RX)
+  RX          <----> Pin 1 (TX)
+                     USB Port <---------> USB Port (Serial)
+```
+*Note: Ensure the SIM800L has a separate 2A power source for GSM stability.*
+
+---
+
+## 🚀 Installation & Reproducibility
+
+### 1. Environment Setup
+```bash
+# Clone the repository
+git clone https://github.com/your-repo/dawa_ai.git
+cd dawa_ai/edge_server
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 2. AI Model Preparation
+1. **Ollama:** Install [Ollama](https://ollama.ai/).
+2. **Build the Model:**
    ```bash
-   python finetune_gemma.py
-   ```
-3. This will generate a `gemma-4-dawa-kirundi-gguf` folder containing the optimized GGUF weights.
-
-### Step 2: Model Deployment (Ollama)
-1. Create the specialized nurse model:
-   ```bash
+   # Navigate to edge_server/
    ollama create dawa-nurse -f Modelfile
    ```
 
-### Step 3: Hardware Setup
-1. Flash `hardware_gateway/hardware_gateway.ino` to your Arduino.
-2. Connect the SIM800L module (ensure it has a valid SIM card).
+### 3. Hardware Firmware
+1. Open `hardware_gateway/hardware_gateway.ino` in the Arduino IDE.
+2. Select your board and flash the code.
 
-### Step 4: Run the Gateway
-1. Start the edge server:
+### 4. Running the System
+1. Connect the Arduino via USB.
+2. Start the edge server:
    ```bash
    python main.py
    ```
+3. The server will automatically detect the Arduino and announce: `[3/3] System Online.`
 
 ---
 
-## 📖 How to Use (SMS Interface)
+## 📖 How to Test (SMS Protocol)
 
-1. **Register:** Send `REG|MAJIDAWA_2026` to the gateway's phone number.
-2. **Set Language:** Send `LANG|KIRUNDI` (or FRENCH/ENGLISH).
-3. **Triage:** Send your symptoms (e.g., "Umwana afise umuriro").
-4. **Emergency:** If you mention "bleeding" or "unconscious," the system will trigger a **Red Flag** alert instantly.
-5. **Reset:** Send `RESET` to start a new conversation thread.
+To simulate a patient interaction, send these SMS messages to the gateway's SIM number:
+
+1.  **Verify:** `REG|MAJIDAWA_2026` (Unlocks the system).
+2.  **Language:** `LANG|KIRUNDI` (Default) or `LANG|ENGLISH`.
+3.  **Triage Query:** `Umwana wanje afise umuriro.` (My child has a fever).
+4.  **Red Flag Test:** `Ndafise amaraso menshi.` (I have heavy bleeding).
+    *   *Result:* Immediate emergency redirection, bypassing AI.
 
 ---
 
-## 🛡️ Safety & Grounding Proof
-The system logs every RAG retrieval. In the `edge_server` terminal, you will see:
-```text
---- RAG GROUNDING ---
-User Query: Fever and headache.
-Retrieved Protocol: Ibimenyetso vya Malaria: Umuriro... Ivuriro: Kunywa imiti ya Coartem.
----------------------
-```
-This ensures that every AI response is tethered to official medical guidelines, making it a reliable tool for rural health workers and parents.
+## 🛡️ Safety & Grounding
+Dawa AI employs a **Deterministic Guardrail Layer**. Every message is scanned for emergency keywords *before* reaching the LLM. If a "Red Flag" is detected, a pre-validated medical emergency instruction is sent instantly to minimize latency and maximize reliability.
 
 ---
 
 ## ⚖️ License
-This project is licensed under **CC-BY 4.0** as per the Gemma 4 Good Hackathon requirements.
+Licensed under **CC-BY 4.0**. Created for the **Gemma 4 Good Hackathon**.

@@ -1,8 +1,8 @@
 pyserial
 requests
+flask
 chromadb
 sentence-transformers
-sqlite3
 # For fine-tuning (optional, needs GPU)
 # unsloth
 # torch

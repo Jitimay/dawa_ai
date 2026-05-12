@@ -48,6 +48,23 @@ def find_arduino_port():
             return port.device
     return None
 
+def connect_to_gateway():
+    """Attempts to establish serial connection with the gateway."""
+    port = find_arduino_port()
+    if not port:
+        print("[!] Searching for Gateway... (Ensure Arduino is plugged in)")
+        return None
+        
+    try:
+        ser = serial.Serial(port, BAUD_RATE, timeout=1)
+        time.sleep(2) # Wait for Arduino reset
+        ser.reset_input_buffer()
+        print(f"[✓] Connected to Gateway on {port}")
+        return ser
+    except Exception as e:
+        print(f"[X] Connection Error: {e}")
+        return None
+
 def detect_red_flag(text):
     """Checks if the message contains any emergency keywords."""
     text_lower = text.lower()
@@ -66,34 +83,28 @@ def log_interaction(phone, message, response, triage_status):
         writer.writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), phone, message, response, triage_status])
 
 def main():
-    print("==========================================")
+    print("\n" + "="*42)
     print("   DAWA_AI: OFFLINE AI HEALTH GATEWAY   ")
-    print("==========================================")
+    print("="*42 + "\n")
     
     # 1. Initialize the local database
     init_db()
     print("[1/3] Local Database Initialized.")
 
-    # 2. Establish Serial Connection with Arduino
-    port = find_arduino_port()
-    if not port:
-        print("[ERROR] Could not find Arduino. Please check connection.")
-        sys.exit(1)
-        
-    try:
-        ser = serial.Serial(port, BAUD_RATE, timeout=1)
-        time.sleep(2) 
-        ser.reset_input_buffer()
-        print(f"[2/3] Connected to Gateway on {port}")
-    except Exception as e:
-        print(f"[ERROR] Could not connect to {port}: {e}")
-        sys.exit(1)
-
-    print("[3/3] System Online. Waiting for incoming SMS...")
-    print("------------------------------------------")
-
+    ser = None
+    print("[2/3] Establishing Gateway Link...")
+    
+    # 2. Reconnection Loop
     while True:
         try:
+            if ser is None or not ser.is_open:
+                ser = connect_to_gateway()
+                if ser is None:
+                    time.sleep(5)
+                    continue
+                print("[3/3] System Online. Waiting for incoming SMS...")
+                print("-" * 42)
+
             if ser.in_waiting > 0:
                 line = ser.readline().decode('utf-8', errors='ignore').strip()
                 
@@ -104,10 +115,9 @@ def main():
                         phone_number = parts[1].strip()
                         user_text = parts[2].strip()
                         
-                        print(f"\n[RECEIVED] From: {phone_number}")
-                        print(f"Message: {user_text}")
+                        print(f"\n[INBOUND] {phone_number}: {user_text}")
 
-                        # --- STEP 0: REGISTRATION LOGIC ---
+                        # --- REGISTRATION ---
                         if user_text.startswith("REG|"):
                             reg_parts = user_text.split('|')
                             if len(reg_parts) == 2 and reg_parts[1] == REG_PASSWORD:
@@ -117,7 +127,7 @@ def main():
                                 log_interaction(phone_number, user_text, msg, "REGISTRATION")
                                 continue
 
-                        # --- STEP 0.1: LANGUAGE SELECTION ---
+                        # --- LANGUAGE SELECTION ---
                         if user_text.startswith("LANG|"):
                             lang_parts = user_text.split('|')
                             if len(lang_parts) == 2:
@@ -129,23 +139,23 @@ def main():
                                     log_interaction(phone_number, user_text, confirm_msg, "LANG_CHANGE")
                                     continue
 
-                        # --- STEP 1: SECURITY CHECK ---
+                        # --- SECURITY CHECK ---
                         if not is_verified(phone_number):
-                            print(f"Rejected: {phone_number} is not verified.")
-                            denial_msg = "[SYSTEM] Inomero yanyu ntiyaremewe. Vugana n'umukozi w'amagara. (Number not verified. Contact health worker.)"
+                            print(f"[!] Blocked unverified number: {phone_number}")
+                            denial_msg = "[SYSTEM] Inomero yanyu ntiyaremewe. Vugana n'umukozi w'amagara. (Number not verified.)"
                             ser.write(f"SEND|{phone_number}|{denial_msg}\n".encode('utf-8'))
                             log_interaction(phone_number, user_text, denial_msg, "UNVERIFIED")
                             continue
 
-                        # --- STEP 2: RED FLAG DETECTION (SAFETY FIRST) ---
+                        # --- RED FLAG DETECTION ---
                         if detect_red_flag(user_text):
                             emergency_msg = "[STATUS: RED] - URGENT: Genda kwa muganga ubu nyene! (Emergency: Go to the hospital immediately!)"
-                            print("!!! RED FLAG DETECTED !!!")
+                            print("!!! EMERGENCY DETECTED: RED FLAG TRIGGERED !!!")
                             ser.write(f"SEND|{phone_number}|{emergency_msg}\n".encode('utf-8'))
                             log_interaction(phone_number, user_text, emergency_msg, "EMERGENCY")
                             continue
 
-                        # --- STEP A: CHECK FOR RESET KEYWORDS ---
+                        # --- SESSION RESET ---
                         if user_text.upper() in RESET_KEYWORDS:
                             new_id = create_new_thread(phone_number)
                             confirm_msg = "[SYSTEM] Intango nshasha yatanguye. Tugufashe gute? (New session started.)"
@@ -153,29 +163,39 @@ def main():
                             log_interaction(phone_number, user_text, confirm_msg, "RESET")
                             continue
 
-                        # --- STEP B: MANAGE SESSION & HISTORY ---
+                        # --- AI CONSULTATION ---
                         thread_id = get_active_thread(phone_number)
                         add_message(thread_id, 'user', user_text)
                         history = get_thread_history(thread_id)
                         user_lang = get_user_lang(phone_number)
 
-                        # --- STEP C: INVOKE GEMMA 4 (RAG ENABLED) ---
-                        print(f"Consulting Gemma 4 (Thread ID: {thread_id}, Lang: {user_lang})...")
+                        print(f"[AI] Consulting Gemma 4 (ID: {thread_id})...")
                         ai_reply = get_triage_response(phone_number, user_text, history, user_lang)
                         
-                        # --- STEP D: SAVE & DISPATCH ---
                         add_message(thread_id, 'assistant', ai_reply)
                         ser.write(f"SEND|{phone_number}|{ai_reply}\n".encode('utf-8'))
-                        print(f"Action: Dispatched AI reply.")
+                        print(f"[OUTBOUND] Sent to {phone_number}: {ai_reply}")
                         log_interaction(phone_number, user_text, ai_reply, "AI_RESPONSE")
+            
+            time.sleep(0.1) # Prevent CPU hogging
 
+        except serial.SerialException:
+            print("[X] Gateway Lost Connection. Attempting to reconnect...")
+            if ser:
+                ser.close()
+            ser = None
+            time.sleep(2)
         except KeyboardInterrupt:
-            print("\nShutting down Dawa AI Server...")
-            ser.close()
+            print("\n[!] Shutting down Dawa AI Server...")
+            if ser:
+                ser.close()
             break
         except Exception as e:
-            print(f"[CRITICAL ERROR] Loop crashed: {e}")
+            print(f"[CRITICAL ERROR] {e}")
             time.sleep(2)
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()

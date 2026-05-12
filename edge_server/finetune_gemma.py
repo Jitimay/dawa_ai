@@ -7,7 +7,7 @@ from transformers import TrainingArguments
 # 1. Configuration
 model_name = "google/gemma-4-4b-it" # Use the specific Gemma 4 variant
 max_seq_length = 2048
-dataset_file = "medical_dataset_kirundi.jsonl"
+dataset_file = "final_training_dataset.jsonl"
 
 # 2. Load Model and Tokenizer with Unsloth (4-bit quantization for efficiency)
 model, tokenizer = FastLanguageModel.from_pretrained(
@@ -38,13 +38,14 @@ trainer = SFTTrainer(
     args = TrainingArguments(
         per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
-        warmup_steps = 5,
-        max_steps = 60,
+        warmup_steps = 10,
+        max_steps = 300,
         learning_rate = 2e-4,
         fp16 = not torch.cuda.is_bf16_supported(),
         bf16 = torch.cuda.is_bf16_supported(),
         logging_steps = 1,
         output_dir = "outputs",
+        optim = "adamw_8bit",
     ),
 )
 

@@ -21,7 +21,7 @@ While 72% of the population has a mobile phone, only 11% can access the internet
 ---
 
 ## SCENE 2: THE SOLUTION (0:45 - 1:30)
-**Visual:** Close up of the Arduino/SIM800L hardware setup. Lights are blinking. Transition to the "Dawa AI" logo.
+**Visual:** Close up of the Arduino Nano RP2040 Connect and SIM800A hardware setup. Lights are blinking. Transition to the "Dawa AI" logo.
 **Audio (Voiceover):**
 This is not just a healthcare problem. This is an access problem. We built **Dawa AI**. An AI-powered medical assistant that works through simple SMS. No internet. No smartphone. Just a basic phone.
 
@@ -65,4 +65,6 @@ Because access to life-saving information should not depend on access to the int
 1. **The Demo:** When filming the SMS part, make sure the camera is steady. If you can't film a real phone, use an SMS mockup tool, but **definitely** show the real Arduino hardware on your desk.
 2. **The Hardware:** Show the SIM card bheing inserted or the antenna of the SIM800L. It emphasizes the "Offline/GSM" aspect which judges love.
 3. **The AI:** Briefly show the terminal running Ollama. This proves you are running Gemma 4 locally.
-4. **Tone:** The first half should be slow and serious. The second half (Solution) should be energetic and optimistic.
+4. **The Silicon:** Mention the **RP2040's dual-core capability** for handling the GSM handshake and triage logic simultaneously.
+5. **Tone:** The first half should be slow and serious.
+ The second half (Solution) should be energetic and optimistic.

@@ -19,9 +19,9 @@
 ## 🛠️ System Architecture
 
 ### 1. Hardware Layer (The Gateway)
-- **Arduino (Uno/RP2040):** Handles serial parsing and power management.
-- **SIM800L GSM Module:** Provides the cellular link for SMS.
-- **Local PC/Edge Server:** Runs the LLM and Database.
+- **Arduino Nano RP2040 Connect:** Handles serial parsing, power management, and edge-logic.
+- **SIM800A GSM Module:** Provides the cellular link for SMS.
+- **Local PC/Edge Server:** Runs the Gemma 4 LLM and ChromaDB.
 
 ### 2. AI Layer (The Brain)
 - **Gemma 4-4b-it:** Quantized to 4-bit (GGUF) for high-speed edge inference.
@@ -69,17 +69,23 @@ pip install -r requirements.txt
    ollama create dawa-nurse -f Modelfile
    ```
 
-### 3. Hardware Firmware
+### 3. Hardware Firmware (Optional)
 1. Open `hardware_gateway/hardware_gateway.ino` in the Arduino IDE.
 2. Select your board and flash the code.
 
 ### 4. Running the System
-1. Connect the Arduino via USB.
+#### Option A: Full Hardware System
+1. Connect the **Arduino Nano RP2040 Connect** via USB.
 2. Start the edge server:
    ```bash
    python main.py
    ```
-3. The server will automatically detect the Arduino and announce: `[3/3] System Online.`
+
+#### Option B: Virtual Demo (Judge Mode - NO HARDWARE REQUIRED)
+If you do not have the Arduino/GSM hardware, you can run the CLI emulator to test the AI, RAG, and Safety logic:
+```bash
+python test_demo.py
+```
 
 ---
 
@@ -102,3 +108,4 @@ Dawa AI employs a **Deterministic Guardrail Layer**. Every message is scanned fo
 
 ## ⚖️ License
 Licensed under **CC-BY 4.0**. Created for the **Gemma 4 Good Hackathon**.
+ckathon**.

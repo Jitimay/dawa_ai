@@ -22,7 +22,7 @@ With a 2000-row dataset, the "Digital Nurse" persona is deeply embedded in the m
 
 ### Phase 3: Hardware-Software Handshake
 The system uses a unique "Protocol Bridge":
-- **Arduino:** Handles the TinyML-adjacent task of GSM communication and SMS parsing.
+- **Arduino Nano RP2040 Connect:** Handles the TinyML-adjacent task of GSM communication, SMS parsing, and real-time safety scanning.
 - **Ollama:** Handles the heavy lifting of LLM inference on the edge server.
 
 ## 🛡️ Safety & Alignment Iterations

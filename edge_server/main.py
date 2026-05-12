@@ -40,11 +40,11 @@ RED_FLAG_KEYWORDS = [
 LOG_FILE = "triage_logs.csv"
 
 def find_arduino_port():
-    """Dynamically finds the serial port for Arduino/GSM gateway."""
+    """Dynamically finds the serial port for Arduino Nano RP2040 GSM gateway."""
     ports = serial.tools.list_ports.comports()
     for port in ports:
         # Common Arduino/Serial adapter identifiers
-        if "Arduino" in port.description or "USB Serial" in port.description or "ttyACM" in port.device or "ttyUSB" in port.device:
+        if "Arduino" in port.description or "RP2040" in port.description or "ttyACM" in port.device:
             return port.device
     return None
 

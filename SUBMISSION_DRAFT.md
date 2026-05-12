@@ -14,7 +14,7 @@ In rural Burundi, the distance to a clinic is measured in hours of walking, not 
 ## 3. The Solution: Technical Innovation at the Edge
 
 ### A. "Ghost in the Machine" (SMS Gateway)
-We built a hardware bridge using an **Arduino and SIM800L GSM module**. This allows Gemma 4 to communicate via text messages. Since SMS works on any phone and requires no data plan, we achieve 100% reach in our target region.
+We built a hardware bridge using an **Arduino and SIM800L GSM module**. This allows Gemma 4 to communicate via text messages. Since SMS works on any phone and requires no data plan, we achieve 100% reach in our target region. **For judges and developers without hardware access, we include a Virtual Hardware Emulator (`test_demo.py`) that replicates the serial bridge logic for full end-to-end verification.**
 
 ### B. Hybrid Intelligence Strategy
 To solve the "Hallucination vs. Nuance" problem, we implemented a dual-AI architecture:
@@ -29,8 +29,9 @@ Dawa AI was developed using the "Vibe Coding" philosophy—leveraging the **Gemi
 
 ## 5. Impact & Scalability
 - **Simulated Success:** In testing, Dawa AI correctly identified 100% of emergency scenarios and provided accurate triage for Malaria, Cholera, and Maternal Health queries in Kirundi.
-- **Low Cost:** The entire gateway costs less than $50 to build (Arduino + GSM + used PC).
+- **Low Cost:** The entire gateway costs less than $50 to build (Arduino Nano RP2040 + GSM + used PC).
 - **Vision:** To deploy "Dawa Nodes" in every local commune office, turning the mobile network into a decentralized healthcare grid.
 
 ## 6. Conclusion
 Dawa AI proves that the most advanced AI in the world, Gemma 4, belongs in the hands of those who need it most—even if they are a thousand miles from the nearest fiber optic cable.
+ cable.
